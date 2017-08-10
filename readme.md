@@ -1,7 +1,7 @@
 ## Spring Data REST - PUT request does not work properly since v.2.5.7!
 
 Since version 2.5.7 Spring Data REST does not properly perform a **PUT** request
-to update resource which has associated resources. Unlike PUTCH request that works as expected!
+to update resource which has associated resources. Unlike PATCH request that works as expected!
 
 For example, `Person` has a many-to-one association with `Addres`. If we perform
 a PUT request with SDR v.2.5.6 (Spring Boot v.1.4.3) then all works OK. But if we switch
