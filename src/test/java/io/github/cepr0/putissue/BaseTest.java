@@ -25,6 +25,8 @@ public abstract class BaseTest {
 
     @Value("${spring.data.rest.base-path}")
     protected String BASE_PATH;
+    
+    protected String SELF_LINK = "_links.self.href";
 
     @Autowired private WebApplicationContext context;
 

@@ -73,8 +73,8 @@ public class PutIssueTests extends BaseTest {
         mvc.perform(get(BASE_PATH + parent1 + "/children"))
                 .andDo(print())
                 .andExpect(jsonPath("$.." + collection + ".*", hasSize(2)))
-                .andExpect(jsonPath("$._embedded." + collection + "[0]._links.self.href", endsWith(child3)))
-                .andExpect(jsonPath("$._embedded." + collection + "[1]._links.self.href", endsWith(child4)))
+                .andExpect(jsonPath("$._embedded." + collection + "[0]." + SELF_LINK, endsWith(child3)))
+                .andExpect(jsonPath("$._embedded." + collection + "[1]." + SELF_LINK, endsWith(child4)))
                 .andExpect(status().isOk());
     }
 }

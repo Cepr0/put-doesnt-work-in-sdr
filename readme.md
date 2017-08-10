@@ -1,16 +1,19 @@
-## Spring Data REST - PUT does not work since v.2.5.7
+## Spring Data REST - PUT request does not work properly since v.2.5.7!
 
 Since version 2.5.7 Spring Data REST does not properly perform a **PUT** request
-to update resource which has associated resources.
+to update resource which has associated resources. Unlike PUTCH request that works as expected!
 
 For example, `Person` has a many-to-one association with `Addres`. If we perform
 a PUT request with SDR v.2.5.6 (Spring Boot v.1.4.3) then all works OK. But if we switch
-to version 2.5.7 of SDR (i.e. to Spring Boot v.1.4.4) then we get an error:
+to version 2.5.7 (i.e. to Spring Boot v.1.4.4) then we get an error:
 
 ```Can not construct instance of Address: no String-argument constructor/factory method to deserialize from String value```
 
-The same happens with other types of associations, for example one-to-many (uni- and bidirectional) - see the code in
-the application.
+The same happens with other types of associations, for example with one-to-many (uni- and bidirectional) - 
+see the application code and tests.
+
+This problem is present in all versions of the Spring Boot since 1.4.4 including the latest stable 1.5.6 version, 
+as well as the newest 2.0.0-SNAPSHOT version.
 
 To work around this situation we can just switch to SDR v.2.5.6 (Spring Boot v.1.4.3).
 
@@ -40,7 +43,7 @@ Request body:
 	"address": "http://localhost:8080/api/addresses/2"
 }
 ```
-- **v.2.5.6:** Response:
+- **v.2.5.6** Response:
 
 ```json
 {
@@ -59,7 +62,7 @@ Request body:
 }
 ``` 
 
-- **v.2.5.7:** Response:
+- **v.2.5.7** Response:
 
 ```json
 {
