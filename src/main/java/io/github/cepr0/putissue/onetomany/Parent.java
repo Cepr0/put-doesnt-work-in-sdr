@@ -7,15 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
 
+import static lombok.AccessLevel.PROTECTED;
+
 /**
  * @author Cepro
  * @since 2017-08-09
  */
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor(access = PROTECTED)
+@ToString(callSuper = true, exclude = "children")
+@EqualsAndHashCode(callSuper = true, exclude = "children")
 @Entity
 public class Parent extends BaseEntity {
     

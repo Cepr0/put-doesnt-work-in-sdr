@@ -10,12 +10,12 @@ import javax.persistence.*;
  */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class BaseEntity implements Identifiable<Integer> {
+public abstract class BaseEntity implements Identifiable<Integer> {
     
     @Id @GeneratedValue
     private final Integer id;
     
-    public BaseEntity() {
+    protected BaseEntity() {
         this.id = null;
     }
     

@@ -30,7 +30,7 @@ Request body:
 
 ```json
 {
-    "name": "person1",
+    "name": "person1u",
     "_links": {
         "self": {
             "href": "http://localhost:8080/api/persons/1"
