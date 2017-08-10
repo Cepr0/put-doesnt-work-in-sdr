@@ -1,4 +1,5 @@
-## Spring Data REST - PUT doesn't work since v.2.5.7-RELEASE
+## Spring Data REST - PUT doesn't work since v.2.5.7
+
 
 ### many-to-one
 
