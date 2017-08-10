@@ -1,5 +1,7 @@
 package io.github.cepr0.putissue;
 
+import io.github.cepr0.putissue.bi_onetomany.BiChild;
+import io.github.cepr0.putissue.bi_onetomany.BiParent;
 import io.github.cepr0.putissue.manytoone.Address;
 import io.github.cepr0.putissue.manytoone.Person;
 import io.github.cepr0.putissue.onetomany.Child;
@@ -53,6 +55,16 @@ public class Application {
             ));
             
             repo.save(new Parent("parent1", children.subList(0, 2)));
+
+            // bidirectional one-to-many
+
+            BiParent biParent = repo.save(new BiParent("parent1", null));
+            repo.save(asList(
+                    new BiChild(biParent, "child1"),
+                    new BiChild(biParent, "child2"),
+                    new BiChild(null, "child3"),
+                    new BiChild(null, "child4")
+            ));
         };
     }
 }
