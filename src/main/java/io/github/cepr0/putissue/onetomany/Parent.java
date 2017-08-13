@@ -16,8 +16,8 @@ import static lombok.AccessLevel.PROTECTED;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
-@ToString(callSuper = true, exclude = "children")
-@EqualsAndHashCode(callSuper = true, exclude = "children")
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 public class Parent extends BaseEntity {
     

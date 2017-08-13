@@ -1,5 +1,6 @@
 package io.github.cepr0.putissue;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.Identifiable;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
  * @since 2017-08-09
  */
 @MappedSuperclass
+@EqualsAndHashCode
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class BaseEntity implements Identifiable<Integer> {
     
@@ -26,6 +28,6 @@ public abstract class BaseEntity implements Identifiable<Integer> {
     
     @Override
     public String toString() {
-        return "id=" + id;
+        return "[id=" + id + "]";
     }
 }
