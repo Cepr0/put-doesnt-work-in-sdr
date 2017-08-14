@@ -27,7 +27,7 @@ So I set `lombok.anyConstructor.suppressConstructorProperties=true` in the 'lomb
 
 But a new problem was found - PUT request does not update associated objects at all! 
 The example below is demonstrating this behavior. We are trying to update Person by changing his 
-Addres from `address/1` (initial value) to `address/2` but it is still staying `address/1`:      
+Address from `address/1` (initial value) to `address/2` - then it remains the same: `address/1`:      
 
 ```java
 @Entity
@@ -37,12 +37,16 @@ public class Person extends BaseEntity {
     
     @ManyToOne
     private Address address;
+
+    // other stuff
 }
 
 @Entity
 public class Address extends BaseEntity {
     
     private String street;
+    
+    // other stuff    
 }
 ```
 
