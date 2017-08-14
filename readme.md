@@ -19,14 +19,15 @@ To work around this situation we can just switch to SDR v.2.5.6 (Spring Boot v.1
 
 ### UPDATE #1
 
-I found how to avoid error `Can not construct instance of Address: no String-argument constructor/factory
+I found how to avoid the error `Can not construct instance of Address: no String-argument constructor/factory
 method to deserialize from String value`. Since I'm using [Lombok](https://projectlombok.org/) in this project,
-it was necessary to tell Lombok to suppress the using @ConstructorProperties annotation in [generated constructors](https://projectlombok.org/features/constructor).
+it is necessary to tell Lombok to suppress using the `@ConstructorProperties` annotation in 
+[generated constructors](https://projectlombok.org/features/constructor).
 So I set `lombok.anyConstructor.suppressConstructorProperties=true` in the 'lombok.config' file and the error was gone.
 
-But a new problem was found! PUT request just simple does not update associated objects at all.
-
-### many-to-one
+But a new problem was found - PUT request does not update associated objects at all! 
+The example below is demonstrating this behavior. We are trying to update Person by changing his 
+Addres from `address/1` (initial value) to `address/2` but it is still staying `address/1`:      
 
 ```java
 @Entity
@@ -38,21 +39,25 @@ public class Person extends BaseEntity {
     private Address address;
 }
 
+@Entity
 public class Address extends BaseEntity {
     
     private String street;
 }
 ```
+
+Trying to update Person: 
+
     PUT http://localhost:8080/api/persons/1
 
-Request body:
 ```json
 {
 	"name": "person1u",
 	"address": "http://localhost:8080/api/addresses/2"
 }
 ```
-- **v.2.5.6** Response:
+
+Getting the correct response:
 
 ```json
 {
@@ -71,17 +76,22 @@ Request body:
 }
 ``` 
 
-- **v.2.5.7** Response:
+And checking for a 'new' Address of Person - address was not updated: 
+
+    GET http://localhost:8080/api/persons/1/address
 
 ```json
 {
-    "cause": {
-        "cause": {
-            "cause": null,
-            "message": "Can not construct instance of io.github.cepr0.putissue.manytoone.Address: no String-argument constructor/factory method to deserialize from String value ('http://localhost:8080/api/addresses/2')\n at [Source: N/A; line: -1, column: -1] (through reference chain: io.github.cepr0.putissue.manytoone.Person[\"address\"])"
+    "street": "address1",
+    "_links": {
+        "self": {
+            "href": "http://localhost:8080/api/addresses/1"
         },
-        "message": "Could not read payload!; nested exception is com.fasterxml.jackson.databind.JsonMappingException: Can not construct instance of io.github.cepr0.putissue.manytoone.Address: no String-argument constructor/factory method to deserialize from String value ('http://localhost:8080/api/addresses/2')\n at [Source: N/A; line: -1, column: -1] (through reference chain: io.github.cepr0.putissue.manytoone.Person[\"address\"])"
-    },
-    "message": "Could not read an object of type class io.github.cepr0.putissue.manytoone.Person from the request!; nested exception is org.springframework.http.converter.HttpMessageNotReadableException: Could not read payload!; nested exception is com.fasterxml.jackson.databind.JsonMappingException: Can not construct instance of io.github.cepr0.putissue.manytoone.Address: no String-argument constructor/factory method to deserialize from String value ('http://localhost:8080/api/addresses/2')\n at [Source: N/A; line: -1, column: -1] (through reference chain: io.github.cepr0.putissue.manytoone.Person[\"address\"])"
+        "address": {
+            "href": "http://localhost:8080/api/addresses/1"
+        }
+    }
 }
 ```
+
+(The PATCH request still works as expected)

@@ -3,8 +3,7 @@ package io.github.cepr0.putissue.standalone;
 import javax.persistence.*;
 
 /**
- * @author Cepro
- * @since 2017-08-13
+ * @author Cepro, 2017-08-13
  */
 @Entity
 public class Man {

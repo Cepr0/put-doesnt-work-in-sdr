@@ -5,8 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * @author Cepro
- * @since 2017-08-13
+ * @author Cepro, 2017-08-13
  */
 @Entity
 public class Work {
