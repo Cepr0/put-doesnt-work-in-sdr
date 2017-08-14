@@ -31,8 +31,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @SpringBootTest
 public class PutPatchTests {
     
-    @Autowired private ManRepo manRepo;
-    @Autowired private WorkRepo workRepo;
     @Autowired private WebApplicationContext context;
     @Autowired private RepositoryRestConfiguration configuration;
     

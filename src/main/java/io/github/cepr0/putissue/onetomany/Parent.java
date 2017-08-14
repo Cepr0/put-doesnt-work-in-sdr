@@ -4,6 +4,7 @@ import io.github.cepr0.putissue.BaseEntity;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -24,5 +25,6 @@ public class Parent extends BaseEntity {
     private String name;
     
     @OneToMany
+    @JoinColumn(name = "parent_id")
     private List<Child> children;
 }
