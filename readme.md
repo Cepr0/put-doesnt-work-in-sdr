@@ -19,7 +19,12 @@ To work around this situation we can just switch to SDR v.2.5.6 (Spring Boot v.1
 
 ### UPDATE #1
 
+I found how to avoid error `Can not construct instance of Address: no String-argument constructor/factory
+method to deserialize from String value`. Since I'm using [Lombok](https://projectlombok.org/) in this project,
+it was necessary to tell Lombok to suppress the using @ConstructorProperties annotation in [generated constructors](https://projectlombok.org/features/constructor).
+So I set `lombok.anyConstructor.suppressConstructorProperties=true` in the 'lombok.config' file and the error was gone.
 
+But a new problem was found! PUT request just simple does not update associated objects at all.
 
 ### many-to-one
 
